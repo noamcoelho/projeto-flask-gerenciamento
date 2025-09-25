@@ -1,0 +1,176 @@
+{% extends "base.html" %}
+
+{% block title %}Configuração - {{ project.name }}{% endblock %}
+
+{% block content %}
+<div class="row">
+    <div class="col-12">
+        <div class="d-flex justify-content-between align-items-center mb-4">
+            <h2>
+                <i class="fas fa-cog"></i> Configuração do Projeto
+            </h2>
+            <a href="/" class="btn btn-secondary">
+                <i class="fas fa-arrow-left"></i> Voltar
+            </a>
+        </div>
+        
+        <div class="card">
+            <div class="card-header">
+                <h5 class="mb-0">{{ project.name }}</h5>
+            </div>
+            <div class="card-body">
+                <form id="configForm">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="mb-3">
+                                <label for="projectName" class="form-label">Nome do Projeto</label>
+                                <input type="text" class="form-control" id="projectName" 
+                                       value="{{ project.name }}" required>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="mb-3">
+                                <label for="projectProgress" class="form-label">Progresso (%)</label>
+                                <input type="number" class="form-control" id="projectProgress" 
+                                       value="{{ project.progress }}" min="0" max="100">
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="mb-3">
+                        <label for="projectDescription" class="form-label">Descrição</label>
+                        <textarea class="form-control" id="projectDescription" rows="3">{{ project.description }}</textarea>
+                    </div>
+                    
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="mb-3">
+                                <label for="projectStatus" class="form-label">Status</label>
+                                <select class="form-select" id="projectStatus">
+                                    {% for status in allowed_statuses %}
+                                        <option value="{{ status }}" {% if status == project.status %}selected{% endif %}>
+                                            {{ status|title }}
+                                        </option>
+                                    {% endfor %}
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="mb-3">
+                                <label for="projectPriority" class="form-label">Prioridade</label>
+                                <select class="form-select" id="projectPriority">
+                                    {% for priority in allowed_priorities %}
+                                        <option value="{{ priority }}" {% if priority == project.priority %}selected{% endif %}>
+                                            {{ priority|title }}
+                                        </option>
+                                    {% endfor %}
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="mb-3">
+                        <label for="projectTags" class="form-label">Tags</label>
+                        <input type="text" class="form-control" id="projectTags" 
+                               value="{{ project.tags|join(', ') }}" 
+                               placeholder="Separadas por vírgula">
+                    </div>
+                    
+                    <div class="row">
+                        <div class="col-md-6">
+                            <small class="text-muted">
+                                <i class="fas fa-calendar"></i> 
+                                Criado: {{ project.created_at[:10] }}
+                            </small>
+                        </div>
+                        <div class="col-md-6">
+                            <small class="text-muted">
+                                <i class="fas fa-user"></i> 
+                                Por: {{ project.created_by }}
+                            </small>
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <div class="card-footer">
+                <div class="d-flex justify-content-between">
+                    <button type="button" class="btn btn-danger" onclick="deleteProject()">
+                        <i class="fas fa-trash"></i> Excluir Projeto
+                    </button>
+                    <div>
+                        <button type="button" class="btn btn-secondary me-2" onclick="window.location.href='/'">
+                            Cancelar
+                        </button>
+                        <button type="button" class="btn btn-primary" onclick="saveProject()">
+                            <i class="fas fa-save"></i> Salvar Alterações
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block scripts %}
+<script>
+    const projectId = '{{ project.id }}';
+    
+    function saveProject() {
+        const projectData = {
+            name: document.getElementById('projectName').value,
+            description: document.getElementById('projectDescription').value,
+            status: document.getElementById('projectStatus').value,
+            priority: document.getElementById('projectPriority').value,
+            progress: parseInt(document.getElementById('projectProgress').value),
+            tags: document.getElementById('projectTags').value
+        };
+
+        fetch(`/projects/${projectId}`, {
+            method: 'PUT',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(projectData)
+        })
+        .then(response => response.json())
+        .then(data => {
+            if (data.success) {
+                showAlert('Projeto atualizado com sucesso!', 'success');
+                setTimeout(() => {
+                    window.location.href = '/';
+                }, 1500);
+            } else {
+                showAlert('Erro: ' + data.message, 'danger');
+            }
+        })
+        .catch(error => {
+            showAlert('Erro de conexão ao salvar projeto', 'danger');
+        });
+    }
+    
+    function deleteProject() {
+        if (!confirm('Tem certeza que deseja excluir este projeto? Esta ação não pode ser desfeita.')) {
+            return;
+        }
+
+        fetch(`/projects/${projectId}`, {
+            method: 'DELETE'
+        })
+        .then(response => response.json())
+        .then(data => {
+            if (data.success) {
+                showAlert('Projeto excluído com sucesso!', 'success');
+                setTimeout(() => {
+                    window.location.href = '/';
+                }, 1500);
+            } else {
+                showAlert('Erro: ' + data.message, 'danger');
+            }
+        })
+        .catch(error => {
+            showAlert('Erro de conexão ao excluir projeto', 'danger');
+        });
+    }
+</script>
+{% endblock %}
