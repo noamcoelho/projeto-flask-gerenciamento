@@ -1,34 +1,34 @@
-# 🚀 Sistema Avançado de Gerenciamento de Projetos
+#  Sistema Avançado de Gerenciamento de Projetos
 
 Uma aplicação Flask robusta para criação e gerenciamento de projetos com funcionalidades avançadas.
 
-## ✨ Funcionalidades
+##  Funcionalidades
 
-### 🔐 Autenticação
+###  Autenticação
 - Login/Logout com sessões
 - Controle de permissões por usuário
 - Rate limiting para segurança
 
-### 📋 Gerenciamento de Projetos
-- ✅ **CRUD Completo**: Criar, Listar, Visualizar, Editar e Deletar projetos
-- 🏷️ **Sistema de Tags**: Organize projetos com tags personalizadas
-- 📊 **Status e Prioridades**: Acompanhe o estado e importância dos projetos
-- 📈 **Controle de Progresso**: Monitore o progresso de 0-100%
-- 📝 **Descrições Detalhadas**: Adicione contexto aos seus projetos
+###  Gerenciamento de Projetos
+-  **CRUD Completo**: Criar, Listar, Visualizar, Editar e Deletar projetos
+-  **Sistema de Tags**: Organize projetos com tags personalizadas
+-  **Status e Prioridades**: Acompanhe o estado e importância dos projetos
+-  **Controle de Progresso**: Monitore o progresso de 0-100%
+-  **Descrições Detalhadas**: Adicione contexto aos seus projetos
 
-### 🔍 Busca e Filtros Avançados
+###  Busca e Filtros Avançados
 - Busca por nome ou descrição
 - Filtros por status, prioridade e tags
 - Ordenação personalizável
 - Paginação inteligente
 
-### 📊 Estatísticas e Monitoramento
+###  Estatísticas e Monitoramento
 - Dashboard com estatísticas do usuário
 - Distribuição por status e prioridade
 - Progresso médio dos projetos
 - Logs estruturados
 
-## 🛠️ Tecnologias Utilizadas
+##  Tecnologias Utilizadas
 
 - **Flask** - Framework web Python
 - **Python 3.7+** - Linguagem de programação
@@ -36,7 +36,7 @@ Uma aplicação Flask robusta para criação e gerenciamento de projetos com fun
 - **Datetime** - Controle de timestamps
 - **Logging** - Sistema de logs estruturados
 
-## ⚙️ Configuração
+##  Configuração
 
 ### Variáveis de Ambiente (Opcionais)
 ```bash
@@ -55,7 +55,7 @@ pip install -r requirements.txt
 python app.py
 ```
 
-## 📚 API Endpoints
+##  API Endpoints
 
 ### Autenticação
 - `POST /login` - Login do usuário
@@ -74,7 +74,7 @@ python app.py
 - `GET /health` - Status da aplicação
 - `GET /project/<id>/config` - Configuração do projeto
 
-## 🎯 Exemplos de Uso
+##  Exemplos de Uso
 
 ### Criar Projeto
 ```json
@@ -102,7 +102,7 @@ PUT /projects/abc-123
 }
 ```
 
-## 🎨 Status Disponíveis
+##  Status Disponíveis
 - `planning` - Planejamento
 - `in_progress` - Em progresso
 - `testing` - Em teste
@@ -110,13 +110,13 @@ PUT /projects/abc-123
 - `on_hold` - Em espera
 - `cancelled` - Cancelado
 
-## 📈 Prioridades
+##  Prioridades
 - `low` - Baixa
 - `medium` - Média
 - `high` - Alta
 - `critical` - Crítica
 
-## 🔒 Segurança
+##  Segurança
 
 - Rate limiting (60 requests/minuto)
 - Validação rigorosa de entrada
@@ -124,12 +124,12 @@ PUT /projects/abc-123
 - Controle de permissões
 - Sanitização de dados
 
-## 👥 Usuários Padrão
+##  Usuários Padrão
 
 - **Username**: `admin` | **Password**: `admin123`
 - **Username**: `user` | **Password**: `user123`
 
-## 📝 Logs
+##  Logs
 
 A aplicação gera logs em `app.log` com informações sobre:
 - Requests e responses
@@ -137,7 +137,7 @@ A aplicação gera logs em `app.log` com informações sobre:
 - Erros e exceções
 - Eventos de segurança
 
-## 🚀 Melhorias Implementadas
+##  Melhorias Implementadas
 
 1. ✅ **Estrutura de dados robusta** com mais campos
 2. ✅ **Sistema de autenticação completo**
@@ -152,4 +152,4 @@ A aplicação gera logs em `app.log` com informações sobre:
 
 ---
 
-🎉 **Aplicação totalmente modernizada e pronta para produção!**
+ **Aplicação totalmente modernizada e pronta para produção!**
